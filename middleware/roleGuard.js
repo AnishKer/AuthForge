@@ -1,5 +1,7 @@
-// Role-based access middleware placeholder
+// Role-based access middleware
 module.exports = (roles) => (req, res, next) => {
-  // Check user role
+  if (!req.user || !roles.includes(req.user.role)) {
+    return res.status(403).json({ message: 'Forbidden: insufficient permissions.' });
+  }
   next();
 };
